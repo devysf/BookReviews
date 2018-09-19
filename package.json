@@ -10,11 +10,13 @@
   "author": "Yusuf ÖZACET",
   "license": "MIT",
   "dependencies": {
+    "bcryptjs": "^2.4.3",
     "body-parser": "^1.18.3",
     "express": "^4.16.3",
     "mongoose": "^5.2.15"
   },
   "devDependencies": {
+    "locus": "^2.0.1",
     "nodemon": "^1.18.4"
   }
 }
