@@ -4,14 +4,25 @@ const bcrypt = require("bcryptjs");
 
 const User = require("../models/User");
 
+const registerValidation = require("../validation/register");
+const loginValidation = require("../validation/login");
+
 router.get("/test", (req, res) => {
   res.json({ msg: "in users routing" });
 });
 
 router.post("/register", (req, res) => {
+  const { errors, isValid } = registerValidation(req.body);
+
+  //Check register form input
+  if (!isValid) {
+    return res.status(400).json(errors);
+  }
+
   User.findOne({ email: req.body.email }).then(user => {
     if (user) {
-      return res.status(400).json("Email is already exist.");
+      errors.email = "Email is already exist.";
+      return res.status(400).json(errors);
     }
 
     const newUser = new User({
@@ -34,6 +45,13 @@ router.post("/register", (req, res) => {
 });
 
 router.post("/login", (req, res) => {
+  const { errors, isValid } = loginValidation(req.body);
+
+  //Check register form input
+  if (!isValid) {
+    return res.status(400).json(errors);
+  }
+
   const email = req.body.email;
   const password = req.body.password;
 
@@ -46,7 +64,8 @@ router.post("/login", (req, res) => {
       if (isMatch) {
         return res.json("Hello " + user.name + ". You are logged in");
       } else {
-        return res.status(400).json("Password is wrong");
+        errors.password = "Password is wrong";
+        return res.status(400).json(errors);
       }
     });
   });
