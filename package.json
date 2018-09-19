@@ -1,0 +1,20 @@
+{
+  "name": "bookreviews",
+  "version": "1.0.0",
+  "description": "Sample CRUD application for practise what i learned",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "server": "nodemon server.js"
+  },
+  "author": "Yusuf ÖZACET",
+  "license": "MIT",
+  "dependencies": {
+    "body-parser": "^1.18.3",
+    "express": "^4.16.3",
+    "mongoose": "^5.2.15"
+  },
+  "devDependencies": {
+    "nodemon": "^1.18.4"
+  }
+}
