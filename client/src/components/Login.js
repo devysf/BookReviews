@@ -20,13 +20,13 @@ class Login extends Component {
 
   componentDidMount() {
     if (this.props.auth.isAuthenticated) {
-      this.props.history.push("/");
+      this.props.history.push("/home");
     }
   }
 
   componentWillReceiveProps(nextProps) {
     if (nextProps.auth.isAuthenticated) {
-      this.props.history.push("/");
+      this.props.history.push("/home");
     }
 
     if (nextProps.errors) {
@@ -86,13 +86,10 @@ class Login extends Component {
               value={this.state.password}
               onChange={this.onChange}
             />
-            <h1>asd</h1>
             {errors.password && (
               <div className="invalid-feedback">{errors.password}</div>
             )}
           </div>
-          <div className="invalid-feedback">{errors.password} asdasd </div>
-
           <button type="submit" className="btn btn-primary">
             Submit
           </button>

@@ -1,7 +1,7 @@
 import axios from "axios";
 import jwt_decode from "jwt-decode";
 
-import { SET_CURRENT_USER, GET_ERRORS } from "./types";
+import { SET_CURRENT_USER, GET_ERRORS, LOG_OUT_USER } from "./types";
 
 export const registerUser = data => dispatch => {
   axios
@@ -39,5 +39,12 @@ export const setCurrentUser = decodedJWT => {
   return {
     type: SET_CURRENT_USER,
     payload: decodedJWT
+  };
+};
+
+export const logoutUser = () => {
+  return {
+    type: LOG_OUT_USER,
+    payload: {}
   };
 };

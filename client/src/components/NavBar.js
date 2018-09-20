@@ -1,7 +1,17 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
+import { connect } from "react-redux";
+
+import { logoutUser } from "../actions/authActions";
 
 class NavBar extends Component {
+  onLogout(e) {
+    e.preventDefault();
+
+    this.props.logoutUser();
+
+    window.location.href = "/login";
+  }
   render() {
     return (
       <nav className="navbar navbar-expand-lg navbar-dark bg-dark mb-4">
@@ -24,7 +34,7 @@ class NavBar extends Component {
           <div className="collapse navbar-collapse" id="navbarSupportedContent">
             <ul className="navbar-nav mr-auto">
               <li className="nav-item active">
-                <Link className="nav-link" to="/">
+                <Link className="nav-link" to="/home">
                   Home <span className="sr-only">(current)</span>
                 </Link>
               </li>
@@ -40,6 +50,15 @@ class NavBar extends Component {
                   Login
                 </Link>
               </li>
+              <li className="nav-item">
+                <Link
+                  onClick={this.onLogout.bind(this)}
+                  className="nav-link"
+                  to="/login"
+                >
+                  Logout
+                </Link>
+              </li>
             </ul>
           </div>
         </div>
@@ -48,4 +67,7 @@ class NavBar extends Component {
   }
 }
 
-export default NavBar;
+export default connect(
+  null,
+  { logoutUser }
+)(NavBar);

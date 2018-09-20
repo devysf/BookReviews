@@ -6,7 +6,8 @@ import { Provider } from "react-redux";
 import store from "./store";
 
 import NavBar from "./components/NavBar";
-import Home from "./components/Home";
+import StartPage from "./components/StartPage";
+import HomePage from "./components/HomePage";
 import Register from "./components/Register";
 import Login from "./components/Login";
 
@@ -17,7 +18,8 @@ class App extends Component {
         <Router>
           <div className="App">
             <NavBar />
-            <Route exact path="/" component={Home} />
+            <Route exact path="/" component={StartPage} />
+            <Route exact path="/home" component={HomePage} />
             <Route exact path="/register" component={Register} />
             <Route exact path="/login" component={Login} />
           </div>
