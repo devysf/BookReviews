@@ -39,7 +39,21 @@ router.post("/register", (req, res) => {
         newUser.password = hashedPassword;
         newUser
           .save()
-          .then(user => res.json(user))
+          .then(user => {
+            //Create JWT payload
+            const payload = {
+              id: user.id,
+              name: user.name
+            };
+
+            //return sign token, then copy this token to Authorization header of http protocol to provide authorization process
+            jwt.sign(payload, "secret", { expiresIn: 3600 }, (err, token) => {
+              res.json({
+                success: true,
+                token: "Bearer " + token
+              });
+            });
+          })
           .catch(err => console.log(err));
       });
     });
@@ -70,7 +84,7 @@ router.post("/login", (req, res) => {
           name: user.name
         };
 
-        //return sign token, then copy this token to Authorization header of http protocol
+        //return sign token, then copy this token to Authorization header of http protocol to provide authorization process
         jwt.sign(payload, "secret", { expiresIn: 3600 }, (err, token) => {
           res.json({
             success: true,
