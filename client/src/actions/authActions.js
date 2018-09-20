@@ -1,7 +1,7 @@
 import axios from "axios";
 import jwt_decode from "jwt-decode";
 
-import { SET_CURRENT_USER } from "./types";
+import { SET_CURRENT_USER, GET_ERRORS } from "./types";
 
 export const registerUser = data => dispatch => {
   axios
@@ -11,7 +11,12 @@ export const registerUser = data => dispatch => {
 
       dispatch(setCurrentUser(decodedJWT));
     })
-    .catch(err => console.log(err));
+    .catch(err =>
+      dispatch({
+        type: GET_ERRORS,
+        payload: err.response.data
+      })
+    );
 };
 
 export const loginUser = data => dispatch => {
@@ -22,7 +27,12 @@ export const loginUser = data => dispatch => {
 
       dispatch(setCurrentUser(decodedJWT));
     })
-    .catch(err => console.log(err));
+    .catch(err =>
+      dispatch({
+        type: GET_ERRORS,
+        payload: err.response.data
+      })
+    );
 };
 
 export const setCurrentUser = decodedJWT => {

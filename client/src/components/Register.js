@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import classnames from "classnames";
 
 import { connect } from "react-redux";
 
@@ -11,7 +12,8 @@ class Register extends Component {
       name: "",
       email: "",
       password: "",
-      password2: ""
+      password2: "",
+      errors: {}
     };
 
     this.onChange = this.onChange.bind(this);
@@ -27,6 +29,10 @@ class Register extends Component {
   componentWillReceiveProps(nextProps) {
     if (nextProps.auth.isAuthenticated) {
       this.props.history.push("/");
+    }
+
+    if (nextProps.errors) {
+      this.setState({ errors: nextProps.errors });
     }
   }
 
@@ -50,6 +56,7 @@ class Register extends Component {
   }
 
   render() {
+    const { errors } = this.state;
     return (
       <div className="container">
         <form onSubmit={this.onSubmit}>
@@ -57,20 +64,27 @@ class Register extends Component {
             <label htmlFor="name">Name</label>
             <input
               type="name"
-              className="form-control"
+              className={classnames("form-control form-control-lg", {
+                "is-invalid": errors.name
+              })}
               id="name"
               name="name"
               placeholder="Enter name"
               value={this.state.name}
               onChange={this.onChange}
             />
+            {errors.name && (
+              <div className="invalid-feedback">{errors.name}</div>
+            )}
           </div>
 
           <div className="form-group">
             <label htmlFor="email">Email address</label>
             <input
               type="email"
-              className="form-control"
+              className={classnames("form-control form-control-lg", {
+                "is-invalid": errors.email
+              })}
               id="email"
               name="email"
               aria-describedby="emailHelp"
@@ -78,6 +92,9 @@ class Register extends Component {
               value={this.state.email}
               onChange={this.onChange}
             />
+            {errors.email && (
+              <div className="invalid-feedback">{errors.email}</div>
+            )}
             <small id="emailHelp" className="form-text text-muted">
               We'll never share your email with anyone else.
             </small>
@@ -87,25 +104,35 @@ class Register extends Component {
             <label htmlFor="password">Password</label>
             <input
               type="password"
-              className="form-control"
+              className={classnames("form-control form-control-lg", {
+                "is-invalid": errors.password
+              })}
               id="password"
               name="password"
               placeholder="Password"
               value={this.state.password}
               onChange={this.onChange}
             />
+            {errors.password && (
+              <div className="invalid-feedback">{errors.password}</div>
+            )}
           </div>
           <div className="form-group">
             <label htmlFor="password2"> Confirm Password</label>
             <input
               type="password"
-              className="form-control"
+              className={classnames("form-control form-control-lg", {
+                "is-invalid": errors.password2
+              })}
               id="password2"
               name="password2"
               placeholder="Repeat password"
               value={this.state.password2}
               onChange={this.onChange}
             />
+            {errors.password2 && (
+              <div className="invalid-feedback">{errors.password2}</div>
+            )}
           </div>
 
           <button type="submit" className="btn btn-primary">
@@ -118,7 +145,8 @@ class Register extends Component {
 }
 
 const mapStateToProps = state => ({
-  auth: state.auth
+  auth: state.auth,
+  errors: state.errors
 });
 export default connect(
   mapStateToProps,
