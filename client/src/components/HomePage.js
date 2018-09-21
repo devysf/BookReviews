@@ -1,6 +1,19 @@
 import React, { Component } from "react";
+import { connect } from "react-redux";
 
-export default class HomePage extends Component {
+class HomePage extends Component {
+  componentDidMount() {
+    if (!this.props.auth.isAuthenticated) {
+      this.props.history.push("/login");
+    }
+  }
+
+  componentWillReceiveProps(nextProps) {
+    if (!nextProps.auth.isAuthenticated) {
+      this.props.history.push("/login");
+    }
+  }
+
   render() {
     return (
       <div>
@@ -9,3 +22,8 @@ export default class HomePage extends Component {
     );
   }
 }
+
+const mapStateToProps = state => ({
+  auth: state.auth
+});
+export default connect(mapStateToProps)(HomePage);

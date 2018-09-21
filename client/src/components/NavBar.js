@@ -59,6 +59,11 @@ class NavBar extends Component {
             {auth.isAuthenticated ? (
               <ul className="navbar-nav ml-auto">
                 <li className="nav-item">
+                  <Link className="nav-link" to="/profile">
+                    Profile
+                  </Link>
+                </li>
+                <li className="nav-item">
                   <Link
                     onClick={this.onLogout.bind(this)}
                     className="nav-link"

@@ -4,24 +4,20 @@ import { connect } from "react-redux";
 import { getCurrentUser } from "../actions/profileActions";
 
 class ProfilePage extends Component {
-  constructor() {
-    super();
-
-    this.state = {
-      id: "",
-      name: "",
-      email: ""
-    };
-  }
   componentDidMount() {
     this.props.getCurrentUser();
 
-    this.setState({
-      id: this.props.profile.id,
-      name: this.props.profile.name,
-      email: this.props.profile.email
-    });
+    if (!this.props.auth.isAuthenticated) {
+      this.props.history.push("/login");
+    }
   }
+
+  componentWillReceiveProps(nextProps) {
+    if (!nextProps.auth.isAuthenticated) {
+      this.props.history.push("/login");
+    }
+  }
+
   render() {
     const { profile } = this.props;
 
@@ -35,6 +31,7 @@ class ProfilePage extends Component {
 }
 
 const mapStateToProps = state => ({
+  auth: state.auth,
   profile: state.profile
 });
 
