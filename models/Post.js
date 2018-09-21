@@ -25,6 +25,9 @@ const PostSchema = new Schema({
   bookName: {
     type: String
   },
+  image: {
+    type: String
+  },
   description: {
     type: String
   },

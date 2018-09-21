@@ -28,6 +28,7 @@ router.post(
     const newPost = new Post({
       user: req.user,
       bookName: req.body.bookName,
+      image: req.body.image,
       description: req.body.description
     });
 
