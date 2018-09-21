@@ -8,8 +8,27 @@ import store from "./store";
 import NavBar from "./components/NavBar";
 import StartPage from "./components/StartPage";
 import HomePage from "./components/HomePage";
+import ProfilePage from "./components/ProfilePage";
 import Register from "./components/Register";
 import Login from "./components/Login";
+
+import axios from "axios";
+import { setCurrentUser, logoutUser } from "./actions/authActions";
+import jwt_decode from "jwt-decode";
+
+if (localStorage.jwtToken) {
+  axios.defaults.headers.common["Authorization"] = localStorage.jwtToken;
+
+  const decodedJwt = jwt_decode(localStorage.jwtToken);
+
+  store.dispatch(setCurrentUser(decodedJwt));
+
+  if (decodedJwt.exp < Date.now() / 1000) {
+    store.dispatch(logoutUser());
+
+    window.location.href = "/login";
+  }
+}
 
 class App extends Component {
   render() {
@@ -20,6 +39,7 @@ class App extends Component {
             <NavBar />
             <Route exact path="/" component={StartPage} />
             <Route exact path="/home" component={HomePage} />
+            <Route exact path="/profile" component={ProfilePage} />
             <Route exact path="/register" component={Register} />
             <Route exact path="/login" component={Login} />
           </div>

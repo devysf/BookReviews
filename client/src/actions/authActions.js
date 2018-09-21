@@ -7,6 +7,10 @@ export const registerUser = data => dispatch => {
   axios
     .post("/users/register", data)
     .then(res => {
+      localStorage.setItem("jwtToken", res.data.token);
+
+      axios.defaults.headers.common["Authorization"] = res.data.token;
+
       const decodedJWT = jwt_decode(res.data.token);
 
       dispatch(setCurrentUser(decodedJWT));
@@ -23,6 +27,10 @@ export const loginUser = data => dispatch => {
   axios
     .post("/users/login", data)
     .then(res => {
+      localStorage.setItem("jwtToken", res.data.token);
+
+      axios.defaults.headers.common["Authorization"] = res.data.token;
+
       const decodedJWT = jwt_decode(res.data.token);
 
       dispatch(setCurrentUser(decodedJWT));
@@ -43,6 +51,10 @@ export const setCurrentUser = decodedJWT => {
 };
 
 export const logoutUser = () => {
+  localStorage.removeItem("jwtToken");
+
+  delete axios.defaults.headers.common["Authorization"];
+
   return {
     type: LOG_OUT_USER,
     payload: {}

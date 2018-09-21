@@ -10,9 +10,11 @@ class NavBar extends Component {
 
     this.props.logoutUser();
 
-    window.location.href = "/login";
+    window.location.href = "/";
   }
   render() {
+    const { auth } = this.props;
+
     return (
       <nav className="navbar navbar-expand-lg navbar-dark bg-dark mb-4">
         <div className="container">
@@ -39,27 +41,34 @@ class NavBar extends Component {
                 </Link>
               </li>
             </ul>
-            <ul className="navbar-nav ml-auto">
-              <li className="nav-item">
-                <Link className="nav-link" to="/register">
-                  Sign Up
-                </Link>
-              </li>
-              <li className="nav-item">
-                <Link className="nav-link" to="/login">
-                  Login
-                </Link>
-              </li>
-              <li className="nav-item">
-                <Link
-                  onClick={this.onLogout.bind(this)}
-                  className="nav-link"
-                  to="/login"
-                >
-                  Logout
-                </Link>
-              </li>
-            </ul>
+
+            {!auth.isAuthenticated ? (
+              <ul className="navbar-nav ml-auto">
+                <li className="nav-item">
+                  <Link className="nav-link" to="/register">
+                    Sign Up
+                  </Link>
+                </li>
+                <li className="nav-item">
+                  <Link className="nav-link" to="/login">
+                    Login
+                  </Link>
+                </li>
+              </ul>
+            ) : null}
+            {auth.isAuthenticated ? (
+              <ul className="navbar-nav ml-auto">
+                <li className="nav-item">
+                  <Link
+                    onClick={this.onLogout.bind(this)}
+                    className="nav-link"
+                    to="/login"
+                  >
+                    Logout
+                  </Link>
+                </li>
+              </ul>
+            ) : null}
           </div>
         </div>
       </nav>
@@ -67,7 +76,11 @@ class NavBar extends Component {
   }
 }
 
+const mapStateToProps = state => ({
+  auth: state.auth
+});
+
 export default connect(
-  null,
+  mapStateToProps,
   { logoutUser }
 )(NavBar);
