@@ -1,6 +1,6 @@
 import axios from "axios";
 
-import { GET_POSTS } from "./types";
+import { GET_POSTS, GET_POST } from "./types";
 
 export const getPosts = () => dispatch => {
   axios
@@ -11,6 +11,18 @@ export const getPosts = () => dispatch => {
         payload: res.data
       });
     })
+    .catch(err => console.log(err));
+};
+
+export const getPostById = id => dispatch => {
+  axios
+    .get(`/posts/${id}`)
+    .then(res =>
+      dispatch({
+        type: GET_POST,
+        payload: res.data
+      })
+    )
     .catch(err => console.log(err));
 };
 

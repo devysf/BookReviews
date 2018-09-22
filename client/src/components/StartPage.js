@@ -29,9 +29,9 @@ class StartPage extends Component {
               <h5 className="card-title">{post.bookName}</h5>
               <p className="card-text">{post.description}</p>
               <p className="card-text">Review by {post.username}</p>
-              <a href="#" className="btn btn-primary">
+              <Link to={`/post/${post._id}`} className="btn btn-primary">
                 Go detail reviews
-              </a>
+              </Link>
             </div>
           </div>
         </div>
