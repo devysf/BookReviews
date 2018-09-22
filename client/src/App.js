@@ -11,6 +11,7 @@ import HomePage from "./components/HomePage";
 import ProfilePage from "./components/ProfilePage";
 import Register from "./components/Register";
 import Login from "./components/Login";
+import BookReviewForm from "./components/BookReviewForm";
 
 import axios from "axios";
 import { setCurrentUser, logoutUser } from "./actions/authActions";
@@ -42,6 +43,7 @@ class App extends Component {
             <Route exact path="/profile" component={ProfilePage} />
             <Route exact path="/register" component={Register} />
             <Route exact path="/login" component={Login} />
+            <Route exact path="/create-review" component={BookReviewForm} />
           </div>
         </Router>
       </Provider>

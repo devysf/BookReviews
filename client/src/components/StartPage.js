@@ -1,4 +1,6 @@
 import React, { Component } from "react";
+import { Link } from "react-router-dom";
+
 import { connect } from "react-redux";
 import { getPosts } from "../actions/postActions";
 
@@ -48,9 +50,13 @@ class StartPage extends Component {
           <hr className="my-4" />
           <p />
           <p className="lead">
-            <a className="btn btn-primary btn-lg" href="#" role="button">
+            <Link
+              className="btn btn-primary btn-lg"
+              to="/create-review"
+              role="button"
+            >
               Add Your Book Reviews{" "}
-            </a>
+            </Link>
           </p>
         </div>
         <div class="row">{displayPosts}</div>

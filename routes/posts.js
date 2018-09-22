@@ -21,6 +21,7 @@ router.get("/", (req, res) => {
     );
 });
 
+//create new Post
 router.post(
   "/",
   passport.authenticate("jwt", { session: false }),

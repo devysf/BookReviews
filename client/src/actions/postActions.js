@@ -13,3 +13,10 @@ export const getPosts = () => dispatch => {
     })
     .catch(err => console.log(err));
 };
+
+export const addPost = (newBook, history) => dispatch => {
+  axios
+    .post("/posts", newBook)
+    .then(res => history.push("/"))
+    .catch(err => console.log(err));
+};
