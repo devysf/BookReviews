@@ -8,22 +8,29 @@ class StartPage extends Component {
   }
   render() {
     var cardStyle = {
-      width: "18rem"
+      width: "12rem"
     };
 
     const { posts } = this.props.post;
-
+    console.log(posts);
     if (posts) {
       console.log(posts);
       var displayPosts = posts.map(post => (
-        <div className="card card-body mb-3" style={cardStyle}>
-          <img className="card-img-top" src={post.image} alt="Card image cap" />
-          <div className="card-body">
-            <h5 className="card-title">{post.bookName}</h5>
-            <p className="card-text">{post.description}</p>
-            <a href="#" className="btn btn-primary">
-              Go detail reviews
-            </a>
+        <div class="col-lg-3 col-md-6 col-sm-12">
+          <div className="card " style={cardStyle}>
+            <img
+              className="card-img-top"
+              src={post.image}
+              alt="Card image cap"
+            />
+            <div className="card-body">
+              <h5 className="card-title">{post.bookName}</h5>
+              <p className="card-text">{post.description}</p>
+              <p className="card-text">Review by {post.username}</p>
+              <a href="#" className="btn btn-primary">
+                Go detail reviews
+              </a>
+            </div>
           </div>
         </div>
       ));
@@ -32,9 +39,7 @@ class StartPage extends Component {
     }
 
     return (
-      <div>
-        <h1> Start Page </h1>
-
+      <div className="container">
         <div className="jumbotron">
           <h1 className="display-4">Welcome to Book Reviews!</h1>
           <p className="lead">
@@ -48,7 +53,7 @@ class StartPage extends Component {
             </a>
           </p>
         </div>
-        {displayPosts}
+        <div class="row">{displayPosts}</div>
       </div>
     );
   }
