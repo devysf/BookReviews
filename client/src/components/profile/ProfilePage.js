@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 
-import { getCurrentUser } from "../actions/profileActions";
+import { getCurrentUser } from "../../actions/profileActions";
 
 class ProfilePage extends Component {
   componentDidMount() {

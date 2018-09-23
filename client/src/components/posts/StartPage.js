@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { Link } from "react-router-dom";
 
 import { connect } from "react-redux";
-import { getPosts } from "../actions/postActions";
+import { getPosts } from "../../actions/postActions";
 
 class StartPage extends Component {
   componentDidMount() {

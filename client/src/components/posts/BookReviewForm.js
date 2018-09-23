@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { Link, withRouter } from "react-router-dom";
 
-import { addPost } from "../actions/postActions";
+import { addPost } from "../../actions/postActions";
 
 class BookReviewForm extends Component {
   constructor() {

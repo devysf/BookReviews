@@ -1,9 +1,9 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { getPostById } from "../actions/postActions";
-import { addComment } from "../actions/postActions";
+import { getPostById } from "../../actions/postActions";
+import { addComment } from "../../actions/postActions";
 
-import isEmpty from "../helpers/isEmpty";
+import isEmpty from "../../helpers/isEmpty";
 
 class SinglePost extends Component {
   constructor() {

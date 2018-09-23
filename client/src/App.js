@@ -1,19 +1,19 @@
 import React, { Component } from "react";
 import "./App.css";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
-import PrivateRoute from "./common/PrivateRoute";
+import PrivateRoute from "./components/common/PrivateRoute";
 
 import { Provider } from "react-redux";
 import store from "./store";
 
-import NavBar from "./components/NavBar";
-import StartPage from "./components/StartPage";
-import HomePage from "./components/HomePage";
-import ProfilePage from "./components/ProfilePage";
-import Register from "./components/Register";
-import Login from "./components/Login";
-import BookReviewForm from "./components/BookReviewForm";
-import SinglePost from "./components/SinglePost";
+import NavBar from "./components/layout/NavBar";
+import StartPage from "./components/posts/StartPage";
+import HomePage from "./components/profile/HomePage";
+import ProfilePage from "./components/profile/ProfilePage";
+import Register from "./components/auth/Register";
+import Login from "./components/auth/Login";
+import BookReviewForm from "./components/posts/BookReviewForm";
+import SinglePost from "./components/posts/SinglePost";
 
 import axios from "axios";
 import { setCurrentUser, logoutUser } from "./actions/authActions";
