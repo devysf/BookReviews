@@ -18,7 +18,7 @@ class StartPage extends Component {
     if (posts) {
       console.log(posts);
       var displayPosts = posts.map(post => (
-        <div class="col-lg-3 col-md-6 col-sm-12">
+        <div className="col-lg-3 col-md-6 col-sm-12">
           <div className="card " style={cardStyle}>
             <img
               className="card-img-top"
@@ -59,7 +59,7 @@ class StartPage extends Component {
             </Link>
           </p>
         </div>
-        <div class="row">{displayPosts}</div>
+        <div className="row">{displayPosts}</div>
       </div>
     );
   }

@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import "./App.css";
-import { BrowserRouter as Router, Route } from "react-router-dom";
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import PrivateRoute from "./common/PrivateRoute";
 
 import { Provider } from "react-redux";
 import store from "./store";
@@ -40,12 +41,25 @@ class App extends Component {
           <div className="App">
             <NavBar />
             <Route exact path="/" component={StartPage} />
-            <Route exact path="/home" component={HomePage} />
-            <Route exact path="/profile" component={ProfilePage} />
             <Route exact path="/register" component={Register} />
             <Route exact path="/login" component={Login} />
-            <Route exact path="/create-review" component={BookReviewForm} />
             <Route exact path="/post/:id" component={SinglePost} />
+
+            <Switch>
+              <PrivateRoute exact path="/home" component={HomePage} />
+            </Switch>
+
+            <Switch>
+              <PrivateRoute exact path="/profile" component={ProfilePage} />
+            </Switch>
+
+            <Switch>
+              <PrivateRoute
+                exact
+                path="/create-review"
+                component={BookReviewForm}
+              />
+            </Switch>
           </div>
         </Router>
       </Provider>

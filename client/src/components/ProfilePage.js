@@ -6,16 +6,6 @@ import { getCurrentUser } from "../actions/profileActions";
 class ProfilePage extends Component {
   componentDidMount() {
     this.props.getCurrentUser();
-
-    if (!this.props.auth.isAuthenticated) {
-      this.props.history.push("/login");
-    }
-  }
-
-  componentWillReceiveProps(nextProps) {
-    if (!nextProps.auth.isAuthenticated) {
-      this.props.history.push("/login");
-    }
   }
 
   render() {
@@ -31,7 +21,6 @@ class ProfilePage extends Component {
 }
 
 const mapStateToProps = state => ({
-  auth: state.auth,
   profile: state.profile
 });
 
