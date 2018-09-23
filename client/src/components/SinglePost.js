@@ -1,35 +1,50 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { getPostById } from "../actions/postActions";
+import { addComment } from "../actions/postActions";
 
 import isEmpty from "../helpers/isEmpty";
 
 class SinglePost extends Component {
+  constructor() {
+    super();
+
+    this.state = {
+      message: ""
+    };
+
+    this.onChange = this.onChange.bind(this);
+    this.onSubmit = this.onSubmit.bind(this);
+  }
+
   componentDidMount() {
     console.log(this.props.match.params.id);
     this.props.getPostById(this.props.match.params.id);
   }
+
+  onSubmit(e) {
+    e.preventDefault();
+
+    const { user } = this.props.auth;
+    const { id } = this.props.match.params;
+
+    const newComment = {
+      message: this.state.message,
+      name: user.name,
+      user: user
+    };
+
+    this.props.addComment(newComment, id);
+    this.setState({ message: "" });
+  }
+
+  onChange(e) {
+    this.setState({ [e.target.name]: e.target.value });
+  }
+
   render() {
     const { post } = this.props.post;
-    /*
-    const post = {
-      bookName: "Inferno",
-      image:
-        "https://vignette.wikia.nocookie.net/davincicode/images/f/f0/Inferno.jpg/revision/latest?cb=20150617173420",
-      username: "Yusuf OZACET",
-      description: "Perfect",
-      comments: [
-        {
-          username: "Yunus",
-          message: "Hii"
-        },
-        {
-          username: "Yasin",
-          message: "Helloooo"
-        }
-      ]
-    };
-*/
+
     const cardStyle = {
       height: "10%",
       width: "20%",
@@ -40,7 +55,30 @@ class SinglePost extends Component {
       width: "50px"
     };
 
-    console.log(post);
+    var commentForm = (
+      <div className="post-form mb-3">
+        <div className="card card-info">
+          <div className="card-header bg-dark text-white">
+            Make a comment...
+          </div>
+          <div className="card-body">
+            <form onSubmit={this.onSubmit}>
+              <div className="form-group">
+                <textarea
+                  placeholder="Reply to post"
+                  name="message"
+                  value={this.state.message}
+                  onChange={this.onChange}
+                />
+              </div>
+              <button type="submit" className="btn btn-dark">
+                Submit
+              </button>
+            </form>
+          </div>
+        </div>
+      </div>
+    );
 
     var commentContent;
     if (isEmpty(post.comments)) {
@@ -71,21 +109,22 @@ class SinglePost extends Component {
 
     return (
       <div>
-        <div class="card text-center">
-          <div class="card-header">Review of {post.bookName}</div>
+        <div className="card text-center">
+          <div className="card-header">Review of {post.bookName}</div>
           <img
             className="card-img-top"
             src={post.image}
             alt="Card image cap"
             style={cardStyle}
           />
-          <div class="card-body">
-            <h5 class="card-title">Review by {post.username}</h5>
-            <p class="card-text">{post.description}</p>
+          <div className="card-body">
+            <h5 className="card-title">Review by {post.username}</h5>
+            <p className="card-text">{post.description}</p>
           </div>
-          <div class="card-footer text-muted">2 days ago</div>
+          <div className="card-footer text-muted">2 days ago</div>
         </div>
-
+        <hr />
+        {commentForm}
         {commentContent}
       </div>
     );
@@ -93,9 +132,10 @@ class SinglePost extends Component {
 }
 
 const mapStateToProps = state => ({
-  post: state.post
+  post: state.post,
+  auth: state.auth
 });
 export default connect(
   mapStateToProps,
-  { getPostById }
+  { getPostById, addComment }
 )(SinglePost);

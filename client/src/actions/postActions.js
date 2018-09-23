@@ -32,3 +32,15 @@ export const addPost = (newBook, history) => dispatch => {
     .then(res => history.push("/"))
     .catch(err => console.log(err));
 };
+
+export const addComment = (newComment, id) => dispatch => {
+  axios
+    .post(`/posts/${id}/comment`, newComment)
+    .then(res =>
+      dispatch({
+        type: GET_POST,
+        payload: res.data
+      })
+    )
+    .catch(err => console.log(err));
+};

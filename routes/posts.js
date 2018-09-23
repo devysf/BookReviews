@@ -49,4 +49,24 @@ router.post(
   }
 );
 
+router.post(
+  "/:id/comment",
+  passport.authenticate("jwt", { session: false }),
+  (req, res) => {
+    Post.findById(req.params.id)
+      .then(post => {
+        const newComment = {
+          user: req.user,
+          username: req.user.name,
+          message: req.body.message
+        };
+
+        post.comments.unshift(newComment);
+
+        post.save().then(post => res.json(post));
+      })
+      .catch(err => res.status(404).json({ postnotfound: "No post found" }));
+  }
+);
+
 module.exports = router;
